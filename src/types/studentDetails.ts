@@ -1,10 +1,10 @@
-export interface CourseSummary{
-    courseId: number;
+export interface CourseSummary {
+  courseId: number;
   courseName: string;
 }
 
-export interface StudentDetails{
-    id: number;
+export interface StudentDetails {
+  id: number;
   name: string;
   email: string;
   status: string;

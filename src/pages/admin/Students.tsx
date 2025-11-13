@@ -3,6 +3,7 @@ import type { Student } from "../../types/student";
 import apiClient from "../../api/apiClient";
 import type { StudentDetails } from "../../types/studentDetails";
 import StudentModal from "../../components/StudentModel";
+import axios from "axios";
 
 function Students() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -11,16 +12,17 @@ function Students() {
   const [selectedStudent, setSelectedStudent] = useState<StudentDetails | null>(null);
 const [showModal, setShowModal] = useState(false);
 
-  const handleRowClick = async (id: number) => {
+
+const handleRowClick = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:8080/admin/student/${id}`);
-    const data = await response.json();
-    setSelectedStudent(data);
+    const response = await axios.get(`http://localhost:8080/admin/student/${id}`);
+    setSelectedStudent(response.data);
     setShowModal(true);
-  } catch (error) {
-    console.error("Failed to load student details", error);
+  } catch (error: any) {
+    console.error("Failed to load student details", error.response?.data || error.message);
   }
 };
+
 
   useEffect(() => {
     apiClient
