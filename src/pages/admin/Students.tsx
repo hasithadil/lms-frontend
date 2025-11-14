@@ -11,24 +11,30 @@ function Students() {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState<StudentDetails | null>(null);
-const [showModal, setShowModal] = useState(false);
-const [editingStudent, setEditingStudent] = useState<Student | null>(null);
+  const [selectedStudent, setSelectedStudent] = useState<StudentDetails | null>(
+    null
+  );
+  const [showModal, setShowModal] = useState(false);
+  const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const [deletingStudent, setDeletingStudent] = useState<Student | null>(null);
   const [processing, setProcessing] = useState(false);
 
+  const handleRowClick = async (id: number) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/admin/student/${id}`
+      );
+      setSelectedStudent(response.data);
+      setShowModal(true);
+    } catch (error: any) {
+      console.error(
+        "Failed to load student details",
+        error.response?.data || error.message
+      );
+    }
+  };
 
-const handleRowClick = async (id: number) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/admin/student/${id}`);
-    setSelectedStudent(response.data);
-    setShowModal(true);
-  } catch (error: any) {
-    console.error("Failed to load student details", error.response?.data || error.message);
-  }
-};
-
-const handleEditClick = (s: Student) => {
+  const handleEditClick = (s: Student) => {
     setEditingStudent(s);
   };
 
@@ -39,7 +45,9 @@ const handleEditClick = (s: Student) => {
   const onCloseEdit = () => setEditingStudent(null);
 
   const onStudentUpdated = (updated: Student) => {
-    setStudents(prev => prev.map(s => (s.s_id === updated.s_id ? updated : s)));
+    setStudents((prev) =>
+      prev.map((s) => (s.s_id === updated.s_id ? updated : s))
+    );
     setEditingStudent(null);
   };
 
@@ -49,7 +57,9 @@ const handleEditClick = (s: Student) => {
     try {
       await apiClient.delete(`/admin/student/${deletingStudent.s_id}`);
       // remove from list
-      setStudents(prev => prev.filter(s => s.s_id !== deletingStudent.s_id));
+      setStudents((prev) =>
+        prev.filter((s) => s.s_id !== deletingStudent.s_id)
+      );
       setDeletingStudent(null);
     } catch (err: any) {
       alert(err.response?.data?.message || "Delete failed");
@@ -57,7 +67,6 @@ const handleEditClick = (s: Student) => {
       setProcessing(false);
     }
   };
-
 
   useEffect(() => {
     apiClient
@@ -86,46 +95,56 @@ const handleEditClick = (s: Student) => {
         </thead>
         <tbody>
           {students.map((s) => (
-            <tr key={s.s_id} onClick={() => handleRowClick(s.s_id)} style={{ cursor: "pointer" }}>
+            <tr
+              key={s.s_id}
+              onClick={() => handleRowClick(s.s_id)}
+              style={{ cursor: "pointer" }}
+            >
               <td>
                 {s.firstName} {s.lastName}
               </td>
               <td>{s.email}</td>
               <td>{s.status}</td>
               <td>
-                  {/* Show buttons only when ACTIVE */}
-                  {s.status === "ACTIVE" ? (
-                    <>
-                      <button onClick={(e) =>{ 
+                {/* Show buttons only when ACTIVE */}
+                {s.status === "ACTIVE" ? (
+                  <>
+                    <button
+                      onClick={(e) => {
                         e.stopPropagation();
-                        handleEditClick(s)}}
-                        style={{ marginRight: 8 }}>
-                        Update
-                      </button>
+                        handleEditClick(s);
+                      }}
+                      style={{ marginRight: 8 }}
+                    >
+                      Update
+                    </button>
 
-                      <button onClick={(e) => {
+                    <button
+                      onClick={(e) => {
                         e.stopPropagation();
-                        handleDeleteClick(s)}}>
-                        Delete
-                      </button>
-                    </>
-                  ) : (
-                    <em>—</em>
-                  )}
-                </td>
+                        handleDeleteClick(s);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </>
+                ) : (
+                  <em>—</em>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-       {showModal && (
-      <StudentModal
-        student={selectedStudent}
-        onClose={() => setShowModal(false)}
-      />
-    )}
+      {showModal && (
+        <StudentModal
+          student={selectedStudent}
+          onClose={() => setShowModal(false)}
+        />
+      )}
 
-     {/* Update modal */}
+      {/* Update modal */}
       {editingStudent && (
         <UpdateStudentModal
           student={editingStudent}

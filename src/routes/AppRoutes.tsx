@@ -1,12 +1,14 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Students from '../pages/admin/Students'
+import Lecturers from '../pages/admin/Lecturers'
 
 function AppRoutes() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path='admin/students' element={<Students />} />
+            <Route path='/lecturer' element={<Lecturers />} />
+            <Route path='/' element={<Students />} />
         </Routes>
     </BrowserRouter>   
 )
