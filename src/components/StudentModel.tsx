@@ -11,8 +11,8 @@ const StudentModal: React.FC<Props> = ({ student, onClose }) => {
   if (!student) return null;
 
   return (
-    <div style={modalBackdrop}>
-      <div style={modalBox}>
+    <div style={modalBackdrop} className="modal-overlay">
+      <div style={modalBox} className="modal-content">
         <h3>{student.name}</h3>
         <p><strong>Email:</strong> {student.email}</p>
         <p><strong>Status:</strong> {student.status}</p>

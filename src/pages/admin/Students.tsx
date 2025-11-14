@@ -6,6 +6,7 @@ import StudentModal from "../../components/StudentModel";
 import axios from "axios";
 import UpdateStudentModal from "../../components/UpdateStudentModel";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import AddStudentModal from "../../components/AddStudentModel";
 
 function Students() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -18,6 +19,8 @@ function Students() {
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const [deletingStudent, setDeletingStudent] = useState<Student | null>(null);
   const [processing, setProcessing] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+
 
   const handleRowClick = async (id: number) => {
     try {
@@ -51,6 +54,19 @@ function Students() {
     setEditingStudent(null);
   };
 
+  const fetchStudents = async () => {
+    setLoading(true);
+    try {
+      const res = await apiClient.get<Student[]>("/admin/students");
+      setStudents(res.data);
+      setError("");
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Failed to fetch students");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const confirmDelete = async () => {
     if (!deletingStudent) return;
     setProcessing(true);
@@ -69,13 +85,7 @@ function Students() {
   };
 
   useEffect(() => {
-    apiClient
-      .get<Student[]>("/admin/students")
-      .then((res) => setStudents(res.data))
-      .catch((err) =>
-        setError(err.response?.data?.message || "Failed to fetch students")
-      )
-      .finally(() => setLoading(false));
+    fetchStudents();
   }, []);
 
   if (loading) return <p>Loading students...</p>;
@@ -84,6 +94,11 @@ function Students() {
   return (
     <div>
       <h2>All Students</h2>
+    <button onClick={() => setShowAddModal(true)} style={{ marginBottom: "15px" }}>
+  ➕ Add Student
+</button>
+
+
       <table>
         <thead>
           <tr>
@@ -164,6 +179,14 @@ function Students() {
           loading={processing}
         />
       )}
+
+        {showAddModal && (
+    <AddStudentModal
+      onClose={() => setShowAddModal(false)}
+      onSuccess={fetchStudents}  // refresh list
+    />
+  )}
+
     </div>
   );
 }

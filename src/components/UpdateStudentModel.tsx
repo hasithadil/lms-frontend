@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../api/apiClient";
 import type {Student} from "../types/student";
+import "../styles/model.css"
 
 interface Props {
   student: Student;
@@ -49,8 +50,8 @@ const UpdateStudentModal: React.FC<Props> = ({ student, onClose, onUpdated }) =>
   };
 
   return (
-    <div style={backdrop}>
-      <div style={box}>
+    <div style={backdrop} className="modal-overlay">
+      <div style={box} className="modal-content">
         <h3>Update Student</h3>
         <form onSubmit={submit}>
           <div>
@@ -65,13 +66,7 @@ const UpdateStudentModal: React.FC<Props> = ({ student, onClose, onUpdated }) =>
             <label>Email</label>
             <input value={email} onChange={e => setEmail(e.target.value)} />
           </div>
-          <div>
-            <label>Status</label>
-            <select value={status} onChange={e => setStatus(e.target.value as any)}>
-              <option value="ACTIVE">ACTIVE</option>
-              <option value="INACTIVE">INACTIVE</option>
-            </select>
-          </div>
+          
 
           {error && <p style={{ color: "red" }}>{error}</p>}
 
