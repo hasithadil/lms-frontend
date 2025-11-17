@@ -8,3 +8,16 @@ export interface Student {
   lastName: string;
   status: StudentStatus;
 }
+
+export interface CourseSummaryDTO {
+  courseId: number;
+  courseName: string;
+}
+
+export interface StudentResponseDTO {
+  id: number;
+  name: string;
+  email: string;
+  status: string;
+  enrollments: CourseSummaryDTO[];
+}

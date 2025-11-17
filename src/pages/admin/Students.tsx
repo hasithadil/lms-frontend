@@ -8,6 +8,7 @@ import UpdateStudentModal from "../../components/UpdateStudentModel";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import AddStudentModal from "../../components/AddStudentModel";
 import '../../styles/Admin/Students.css';  // ← Import CSS
+import AdminNavbar from "../../components/AdminNavbar";
 
 function Students() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -80,6 +81,8 @@ function Students() {
   if (error) return <p className="error-message">{error}</p>;
 
   return (
+    <>
+    <AdminNavbar />
     <div className="students-container">
       {/* Header with Title and Add Button */}
       <div className="students-header">
@@ -177,6 +180,7 @@ function Students() {
         />
       )}
     </div>
+    </>
   );
 }
 

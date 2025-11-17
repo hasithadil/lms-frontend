@@ -7,6 +7,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 import UpdateLecturerModel from '../../components/UpdateLecturerModel';
 import AddLecturerModal from '../../components/AddLecturerModel';
 import '../../styles/Admin/Lecturers.css';  // ← Import CSS
+import AdminNavbar from '../../components/AdminNavbar';
 
 function Lecturers() {
 
@@ -80,6 +81,8 @@ function Lecturers() {
     if(error) return <p className="error-message">{error}</p>
 
     return (
+        <>
+        <AdminNavbar />
         <div className="lecturers-container">
             {/* Header with Title and Add Button */}
             <div className="lecturers-header">
@@ -180,6 +183,7 @@ function Lecturers() {
                 />
             )}
         </div>
+        </>
     )
 }
 

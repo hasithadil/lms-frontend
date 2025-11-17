@@ -1,0 +1,396 @@
+/* Container */
+.student-dashboard-container {
+  padding: 30px;
+  background: #f5f5f5;
+  min-height: calc(100vh - 60px);
+}
+
+/* Loading & Error States */
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  background: #f5f5f5;
+}
+
+.loading-container p {
+  font-size: 18px;
+  color: #666;
+}
+
+.error-container p {
+  font-size: 18px;
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 20px 30px;
+  border-radius: 8px;
+  border-left: 4px solid #dc3545;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.dashboard-header h2 {
+  color: #1e1e2f;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.enrolled-count {
+  background: linear-gradient(135deg, #4da6ff 0%, #3d8ed9 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(77, 166, 255, 0.3);
+}
+
+/* Profile Card */
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4da6ff 0%, #3d8ed9 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(77, 166, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e1e2f;
+}
+
+.profile-email {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Courses Section */
+.courses-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e1e2f;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.section-icon {
+  font-size: 24px;
+}
+
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* Enrolled Table */
+.enrolled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.enrolled-table thead {
+  background: #1e1e2f;
+  color: white;
+}
+
+.enrolled-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.enrolled-table tbody .course-row {
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.enrolled-table tbody .course-row:hover {
+  background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+  transform: translateX(5px);
+}
+
+.enrolled-table tbody .course-row:last-child {
+  border-bottom: none;
+}
+
+.enrolled-table td {
+  padding: 15px;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Course Name with Icon */
+.course-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.course-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* Unenroll Button */
+.btn-unenroll {
+  background: linear-gradient(135deg, #ff6b6b 0%, #dc3545 100%);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-unenroll:hover {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.btn-unenroll:active {
+  transform: translateY(0);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.empty-text {
+  font-size: 18px;
+  color: #666;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+}
+
+.empty-subtext {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-dashboard-container {
+    padding: 15px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-header h2 {
+    font-size: 24px;
+  }
+
+  .profile-card {
+    padding: 20px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .profile-name {
+    font-size: 20px;
+  }
+
+  .courses-section {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .enrolled-table {
+    font-size: 13px;
+  }
+
+  .enrolled-table th,
+  .enrolled-table td {
+    padding: 10px;
+  }
+
+  .course-name {
+    font-size: 13px;
+  }
+
+  .btn-unenroll {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  .empty-state {
+    padding: 40px 15px;
+  }
+
+  .empty-icon {
+    font-size: 60px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .student-dashboard-container {
+    padding: 0;
+    background: white;
+  }
+
+  .enrolled-count,
+  .btn-unenroll {
+    display: none;
+  }
+
+  .profile-card,
+  .courses-section {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .enrolled-table tbody .course-row:hover {
+    background: white;
+    transform: none;
+  }
+}
+
+/* Animation for table rows */
+.enrolled-table tbody .course-row {
+  animation: slideIn 0.3s ease forwards;
+  opacity: 0;
+}
+
+.enrolled-table tbody .course-row:nth-child(1) { animation-delay: 0.05s; }
+.enrolled-table tbody .course-row:nth-child(2) { animation-delay: 0.1s; }
+.enrolled-table tbody .course-row:nth-child(3) { animation-delay: 0.15s; }
+.enrolled-table tbody .course-row:nth-child(4) { animation-delay: 0.2s; }
+.enrolled-table tbody .course-row:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

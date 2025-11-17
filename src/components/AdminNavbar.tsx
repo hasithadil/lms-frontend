@@ -9,19 +9,19 @@ const AdminNavbar = () => {
 
       <ul className="nav-links">
         <li>
-          <NavLink to="/" className="nav-item">
+          <NavLink to="/admin" end className="nav-item">
             Students
           </NavLink>
         </li>
 
         <li>
-          <NavLink to="/courses" className="nav-item">
+          <NavLink to="/admin/courses" className="nav-item">
             Courses
           </NavLink>
         </li>
 
         <li>
-          <NavLink to="/lecturers" className="nav-item">
+          <NavLink to="/admin/lecturers" className="nav-item">
             Lecturers
           </NavLink>
         </li>
