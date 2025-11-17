@@ -18,8 +18,8 @@ function AppRoutes() {
             <Route path="/student/courses" element={<StudentCourses />} />
       <Route path="/student/:studentId" element={<StudentDashboard />} />
             <Route path="/lecturer/:lecId" element={<LecturerDashboard />} />
-                        <Route path="/lecturer/subjects" element={<LecturerSubjects />} />
-            <Route path="/lecturer/courses" element={<LecturerCourses />} />
+                        <Route path="/lecturer/:lecturerId/subjects" element={<LecturerSubjects />} />
+            <Route path="/lecturer/:lecturerId/courses" element={<LecturerCourses />} />
 
 
     </Routes>

@@ -8,3 +8,10 @@ export interface Lecturer{
       lastName: string;
       status: LecturerStatus;
 }
+
+export interface LecturerCourseDTO {
+  courseId: number;
+  name: string;
+  maxStudent: number;
+  lecturerId: number;
+}

@@ -15,13 +15,13 @@ const LecturerNavbar = () => {
         </li>
 
         <li>
-          <NavLink to="/lecturer/courses" className="nav-item">
+          <NavLink to="/lecturer/:lecturerId/courses" className="nav-item">
             Courses
           </NavLink>
         </li>
 
           <li>
-          <NavLink to="/lecturer/subjects" className="nav-item">
+          <NavLink to="/lecturer/:lecturerId/subjects" className="nav-item">
             Subjects
           </NavLink>
         </li>
