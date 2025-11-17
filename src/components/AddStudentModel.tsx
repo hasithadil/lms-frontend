@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/model.css"
+import "../styles/Components/AddStudentModel.css"
 
 // Random Keycloak-like ID generator
 const generateKCId = () => {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../api/apiClient";
 import type { Lecturer } from "../types/lecturer";
+import "../styles/model.css";  // ← Import CSS
 
 interface Props {
   lecturer: Lecturer;
@@ -29,9 +30,8 @@ const UpdateLecturerModel: React.FC<Props> = ({ lecturer, onClose, onUpdated }) 
     }
 
     try {
-      // Adjust payload field names to match your backend DTO.
       const payload = {
-        kc_id: lecturer.kc_id, // preserve
+        kc_id: lecturer.kc_id,
         email,
         firstName,
         lastName,
@@ -39,7 +39,6 @@ const UpdateLecturerModel: React.FC<Props> = ({ lecturer, onClose, onUpdated }) 
       };
 
       const res = await api.put(`/admin/lecturer/${lecturer.lec_id}`, payload);
-      // Assuming backend returns updated student (same shape)
       onUpdated(res.data);
     } catch (err: any) {
       setError(err.response?.data?.message || "Update failed");
@@ -49,52 +48,86 @@ const UpdateLecturerModel: React.FC<Props> = ({ lecturer, onClose, onUpdated }) 
   };
 
   return (
-    <div style={backdrop}>
-      <div style={box}>
-        <h3>Update Lecturer</h3>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+
+        <h2>Update Lecturer</h2>
+
         <form onSubmit={submit}>
-          <div>
-            <label>First name</label>
-            <input value={firstName} onChange={e => setFirstName(e.target.value)} />
+
+          <div className="form-group">
+            <label>First Name</label>
+            <input 
+              value={firstName} 
+              onChange={e => setFirstName(e.target.value)}
+              placeholder="Enter first name"
+              disabled={saving}
+            />
           </div>
-          <div>
-            <label>Last name</label>
-            <input value={lastName} onChange={e => setLastName(e.target.value)} />
+
+          <div className="form-group">
+            <label>Last Name</label>
+            <input 
+              value={lastName} 
+              onChange={e => setLastName(e.target.value)}
+              placeholder="Enter last name"
+              disabled={saving}
+            />
           </div>
-          <div>
+
+          <div className="form-group">
             <label>Email</label>
-            <input value={email} onChange={e => setEmail(e.target.value)} />
+            <input 
+              type="email"
+              value={email} 
+              onChange={e => setEmail(e.target.value)}
+              placeholder="lecturer@university.edu"
+              disabled={saving}
+            />
           </div>
-          <div>
+
+          {/* <div className="form-group">
             <label>Status</label>
-            <select value={status} onChange={e => setStatus(e.target.value as any)}>
+            <select 
+              value={status} 
+              onChange={e => setStatus(e.target.value as any)}
+              disabled={saving}
+            >
               <option value="ACTIVE">ACTIVE</option>
               <option value="INACTIVE">INACTIVE</option>
             </select>
-          </div>
+          </div> */}
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <div className="modal-error">{error}</div>}
 
-          <div style={{ marginTop: 12 }}>
-            <button type="button" onClick={onClose} disabled={saving} style={{ marginRight: 8 }}>
+          <div className="modal-actions">
+            <button 
+              type="button" 
+              onClick={onClose} 
+              disabled={saving}
+            >
               Cancel
             </button>
-            <button type="submit" disabled={saving}>
-              {saving ? "Saving..." : "Save"}
+            <button 
+              type="submit" 
+              disabled={saving}
+              className={saving ? 'loading' : ''}
+            >
+              {saving ? (
+                <>
+                  <span className="spinner"></span>
+                  Saving...
+                </>
+              ) : (
+                "Save Changes"
+              )}
             </button>
           </div>
+
         </form>
       </div>
     </div>
   );
-};
-
-const backdrop: React.CSSProperties = {
-  position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-  background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center"
-};
-const box: React.CSSProperties = {
-  background: "#fff", padding: 20, borderRadius: 8, width: 420
 };
 
 export default UpdateLecturerModel;

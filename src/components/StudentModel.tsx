@@ -1,6 +1,7 @@
 // components/StudentModal.tsx
 import React from "react";
 import type { StudentDetails } from "../types/studentDetails";
+import "../styles/Components/StudentModel.css";  // ← Import CSS
 
 interface Props {
   student: StudentDetails | null;
@@ -11,45 +12,59 @@ const StudentModal: React.FC<Props> = ({ student, onClose }) => {
   if (!student) return null;
 
   return (
-    <div style={modalBackdrop} className="modal-overlay">
-      <div style={modalBox} className="modal-content">
-        <h3>{student.name}</h3>
-        <p><strong>Email:</strong> {student.email}</p>
-        <p><strong>Status:</strong> {student.status}</p>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="student-modal-content" onClick={(e) => e.stopPropagation()}>
+        
+        {/* Header */}
+        <div className="student-modal-header">
+          <h3>{student.name}</h3>
+          <button className="modal-close-btn" onClick={onClose}>
+            ✕
+          </button>
+        </div>
 
-        <h4>Enrolled Courses</h4>
-        <ul>
-          {student.enrollments.map((c) => (
-            <li key={c.courseId}>
-              {c.courseName}
-            </li>
-          ))}
-        </ul>
+        {/* Student Info */}
+        <div className="student-info-section">
+          <div className="info-row">
+            <span className="info-label">Email:</span>
+            <span className="info-value">{student.email}</span>
+          </div>
+          
+          <div className="info-row">
+            <span className="info-label">Status:</span>
+            <span className={`status-badge ${student.status === 'ACTIVE' ? 'status-active' : 'status-inactive'}`}>
+              {student.status}
+            </span>
+          </div>
+        </div>
 
-        <button onClick={onClose}>Close</button>
+        {/* Enrolled Courses */}
+        <div className="courses-section">
+          <h4>Enrolled Courses</h4>
+          {student.enrollments.length > 0 ? (
+            <ul className="courses-list">
+              {student.enrollments.map((c) => (
+                <li key={c.courseId} className="course-item">
+                  <span className="course-icon">📚</span>
+                  {c.courseName}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="no-courses">No enrolled courses</p>
+          )}
+        </div>
+
+        {/* Footer with Close Button */}
+        <div className="modal-footer">
+          <button className="btn-close-modal" onClick={onClose}>
+            Close
+          </button>
+        </div>
+
       </div>
     </div>
   );
-};
-
-// Basic styles
-const modalBackdrop = {
-  position: "fixed" as const,
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  background: "rgba(0,0,0,0.4)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
-
-const modalBox = {
-  background: "#fff",
-  padding: "20px",
-  borderRadius: "10px",
-  width: "400px"
 };
 
 export default StudentModal;

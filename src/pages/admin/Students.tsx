@@ -7,33 +7,26 @@ import axios from "axios";
 import UpdateStudentModal from "../../components/UpdateStudentModel";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import AddStudentModal from "../../components/AddStudentModel";
+import '../../styles/Admin/Students.css';  // ← Import CSS
 
 function Students() {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState<StudentDetails | null>(
-    null
-  );
+  const [selectedStudent, setSelectedStudent] = useState<StudentDetails | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const [deletingStudent, setDeletingStudent] = useState<Student | null>(null);
   const [processing, setProcessing] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
 
-
   const handleRowClick = async (id: number) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/admin/student/${id}`
-      );
+      const response = await axios.get(`http://localhost:8080/admin/student/${id}`);
       setSelectedStudent(response.data);
       setShowModal(true);
     } catch (error: any) {
-      console.error(
-        "Failed to load student details",
-        error.response?.data || error.message
-      );
+      console.error("Failed to load student details", error.response?.data || error.message);
     }
   };
 
@@ -48,9 +41,7 @@ function Students() {
   const onCloseEdit = () => setEditingStudent(null);
 
   const onStudentUpdated = (updated: Student) => {
-    setStudents((prev) =>
-      prev.map((s) => (s.s_id === updated.s_id ? updated : s))
-    );
+    setStudents((prev) => prev.map((s) => (s.s_id === updated.s_id ? updated : s)));
     setEditingStudent(null);
   };
 
@@ -72,10 +63,7 @@ function Students() {
     setProcessing(true);
     try {
       await apiClient.delete(`/admin/student/${deletingStudent.s_id}`);
-      // remove from list
-      setStudents((prev) =>
-        prev.filter((s) => s.s_id !== deletingStudent.s_id)
-      );
+      setStudents((prev) => prev.filter((s) => s.s_id !== deletingStudent.s_id));
       setDeletingStudent(null);
     } catch (err: any) {
       alert(err.response?.data?.message || "Delete failed");
@@ -88,70 +76,74 @@ function Students() {
     fetchStudents();
   }, []);
 
-  if (loading) return <p>Loading students...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loading) return <p className="loading-message">Loading students...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <div>
-      <h2>All Students</h2>
-    <button onClick={() => setShowAddModal(true)} style={{ marginBottom: "15px" }}>
-  ➕ Add Student
-</button>
+    <div className="students-container">
+      {/* Header with Title and Add Button */}
+      <div className="students-header">
+        <h2>All Students</h2>
+        <button onClick={() => setShowAddModal(true)} className="btn-add">
+          ➕ Add Student
+        </button>
+      </div>
 
-
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((s) => (
-            <tr
-              key={s.s_id}
-              onClick={() => handleRowClick(s.s_id)}
-              style={{ cursor: "pointer" }}
-            >
-              <td>
-                {s.firstName} {s.lastName}
-              </td>
-              <td>{s.email}</td>
-              <td>{s.status}</td>
-              <td>
-                {/* Show buttons only when ACTIVE */}
-                {s.status === "ACTIVE" ? (
-                  <>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEditClick(s);
-                      }}
-                      style={{ marginRight: 8 }}
-                    >
-                      Update
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteClick(s);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </>
-                ) : (
-                  <em>—</em>
-                )}
-              </td>
+      {/* Table */}
+      <div className="table-container">
+        <table className="students-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {students.map((s) => (
+              <tr key={s.s_id} onClick={() => handleRowClick(s.s_id)}>
+                <td>{s.firstName} {s.lastName}</td>
+                <td>{s.email}</td>
+                <td>
+                  <span className={`status-badge ${s.status === 'ACTIVE' ? 'status-active' : 'status-inactive'}`}>
+                    {s.status}
+                  </span>
+                </td>
+                <td>
+                  {s.status === "ACTIVE" ? (
+                    <div className="action-buttons">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditClick(s);
+                        }}
+                        className="btn-update"
+                      >
+                        Update
+                      </button>
 
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteClick(s);
+                        }}
+                        className="btn-delete"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ) : (
+                    <span className="no-actions">—</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modals */}
       {showModal && (
         <StudentModal
           student={selectedStudent}
@@ -159,7 +151,6 @@ function Students() {
         />
       )}
 
-      {/* Update modal */}
       {editingStudent && (
         <UpdateStudentModal
           student={editingStudent}
@@ -168,7 +159,6 @@ function Students() {
         />
       )}
 
-      {/* Confirm delete */}
       {deletingStudent && (
         <ConfirmDialog
           title="Confirm delete"
@@ -180,13 +170,12 @@ function Students() {
         />
       )}
 
-        {showAddModal && (
-    <AddStudentModal
-      onClose={() => setShowAddModal(false)}
-      onSuccess={fetchStudents}  // refresh list
-    />
-  )}
-
+      {showAddModal && (
+        <AddStudentModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={fetchStudents}
+        />
+      )}
     </div>
   );
 }

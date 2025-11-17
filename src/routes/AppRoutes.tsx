@@ -5,12 +5,10 @@ import Lecturers from '../pages/admin/Lecturers'
 
 function AppRoutes() {
   return (
-    <BrowserRouter>
         <Routes>
-            <Route path='/lecturer' element={<Lecturers />} />
+            <Route path='/lecturers' element={<Lecturers />} />
             <Route path='/' element={<Students />} />
         </Routes>
-    </BrowserRouter>   
 )
 }
 
