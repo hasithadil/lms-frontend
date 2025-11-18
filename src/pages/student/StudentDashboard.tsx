@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 
 import StudentNavbar from "../../components/StudentNavbar";
 import CourseDetailsModal from "../../components/CourseDetailsModel";
-import ConfirmDialog from "../../components/ConfirmDialog";  // ← Import ConfirmDialog
+import ConfirmDialog from "../../components/ConfirmDialog";
+import Toast from "../../components/Toast";  // ← Import Toast
 
 import { getStudentDetails, unenrollCourse } from "../../api/studentApi";
 import type { StudentResponseDTO } from "../../types/student";
@@ -21,20 +22,19 @@ const StudentDashboard: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<CourseResponseDTO | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  // ← NEW: State for unenrollment confirmation
   const [unenrollingCourse, setUnenrollingCourse] = useState<{ 
     courseId: number; 
     courseName: string 
   } | null>(null);
   const [processing, setProcessing] = useState(false);
 
+  // ← NEW: Toast state
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
+
   useEffect(() => {
     if (studentId) loadStudent();
   }, [studentId]);
 
-  // -------------------------------
-  // LOAD STUDENT PROFILE
-  // -------------------------------
   const loadStudent = async () => {
     try {
       setLoading(true);
@@ -50,17 +50,11 @@ const StudentDashboard: React.FC = () => {
     }
   };
 
-  // -------------------------------
-  // HANDLE UNENROLL BUTTON CLICK (Show Confirmation)
-  // -------------------------------
   const handleUnenrollClick = (courseId: number, courseName: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // prevent row-click from opening modal
+    e.stopPropagation();
     setUnenrollingCourse({ courseId, courseName });
   };
 
-  // -------------------------------
-  // CONFIRM UNENROLLMENT
-  // -------------------------------
   const confirmUnenroll = async () => {
     if (!unenrollingCourse || !studentId) return;
 
@@ -68,27 +62,28 @@ const StudentDashboard: React.FC = () => {
     try {
       await unenrollCourse(Number(studentId), unenrollingCourse.courseId);
       
-      // Success: Reload student data
       await loadStudent();
+      
+      // ✅ Show success toast instead of alert
+      setToast({
+        message: `Successfully unenrolled from "${unenrollingCourse.courseName}"!`,
+        type: "success"
+      });
+      
       setUnenrollingCourse(null);
       
-      // Optional: Show success message (you can use a toast library later)
-      // For now, we'll use a simple alert
-      setTimeout(() => {
-        alert("✅ Unenrolled successfully!");
-      }, 100);
-      
     } catch (err: any) {
-      alert(err.response?.data?.error || "❌ Unenrollment failed");
+      // ❌ Show error toast instead of alert
+      setToast({
+        message: err.response?.data?.error || "Unenrollment failed",
+        type: "error"
+      });
       setUnenrollingCourse(null);
     } finally {
       setProcessing(false);
     }
   };
 
-  // -------------------------------
-  // SHOW COURSE DETAILS ON CLICK
-  // -------------------------------
   const handleRowClick = async (courseId: number) => {
     try {
       const res = await fetch(`http://localhost:8080/student/course/${courseId}`);
@@ -100,23 +95,16 @@ const StudentDashboard: React.FC = () => {
     }
   };
 
-  // -------------------------------
-  // UI STATES
-  // -------------------------------
   if (loading) return <div className="loading-container"><p>Loading student profile...</p></div>;
   if (error) return <div className="error-container"><p>{error}</p></div>;
   if (!student) return <div className="error-container"><p>Student not found</p></div>;
 
-  // -------------------------------
-  // MAIN UI
-  // -------------------------------
   return (
     <>
       <StudentNavbar />
 
       <div className="student-dashboard-container">
         
-        {/* Page Header */}
         <div className="dashboard-header">
           <h2>My Dashboard</h2>
           <div className="enrolled-count">
@@ -124,7 +112,6 @@ const StudentDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Profile Card */}
         <div className="profile-card">
           <div className="profile-header">
             <div className="profile-avatar">
@@ -140,7 +127,6 @@ const StudentDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Enrolled Courses Section */}
         <div className="courses-section">
           <h3 className="section-title">
             <span className="section-icon">📖</span>
@@ -194,7 +180,6 @@ const StudentDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Course Details Modal */}
       {showModal && selectedCourse && (
         <CourseDetailsModal
           course={selectedCourse}
@@ -202,7 +187,6 @@ const StudentDashboard: React.FC = () => {
         />
       )}
 
-      {/* Unenroll Confirmation Dialog */}
       {unenrollingCourse && (
         <ConfirmDialog
           title="Unenroll from Course"
@@ -211,6 +195,18 @@ const StudentDashboard: React.FC = () => {
           onCancel={() => setUnenrollingCourse(null)}
           onConfirm={confirmUnenroll}
           loading={processing}
+          confirmText="Unenroll"
+          loadingText="Unenrolling..."
+          variant="danger"
+        />
+      )}
+
+      {/* ✅ Toast Notification */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
     </>

@@ -1,0 +1,493 @@
+/* Container */
+.lecturer-subjects-container {
+  padding: 30px;
+  background: #f5f5f5;
+  min-height: calc(100vh - 60px);
+}
+
+/* Loading & Error States */
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  background: #f5f5f5;
+}
+
+.loading-container p {
+  font-size: 18px;
+  color: #666;
+}
+
+.error-container p {
+  font-size: 18px;
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 20px 30px;
+  border-radius: 8px;
+  border-left: 4px solid #dc3545;
+}
+
+/* Header */
+.subjects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.subjects-header h2 {
+  color: #1e1e2f;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Create Subject Button - PURPLE like other lecturer pages */
+.btn-create-subject {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-create-subject:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Count Badge - PURPLE */
+.subjects-count-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Tabs Container */
+.tabs-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: white;
+  border: 2px solid #e0e0e0;
+  color: #666;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.tab:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+  color: #764ba2;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+/* Active Tab - PURPLE */
+.tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+.tab-count {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tab.active .tab-count {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Table Container */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Table Styles */
+.subjects-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.subjects-table thead {
+  background: #1e1e2f;
+  color: white;
+}
+
+.subjects-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.subjects-table tbody .subject-row {
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+/* FIXED: Gray hover like other pages, NOT pink */
+.subjects-table tbody .subject-row:hover {
+  background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+  transform: translateX(5px);
+}
+
+.subjects-table tbody .subject-row:last-child {
+  border-bottom: none;
+}
+
+.subjects-table td {
+  padding: 15px;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Subject Name with Icon */
+.subject-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.subject-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* Lecturer Badge */
+.lecturer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Assign Button - PURPLE */
+.btn-assign {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-assign:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Edit Button - PURPLE (not pink!) */
+.btn-edit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Delete Button - RED (stays the same) */
+.btn-delete {
+  background: linear-gradient(135deg, #ff6b6b 0%, #dc3545 100%);
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Assign Subject Inline Component */
+.assign-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  flex-wrap: wrap;
+}
+
+.assign-inline select {
+  padding: 6px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #333;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 180px;
+}
+
+.assign-inline select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.assign-inline button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.assign-inline button:first-of-type {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.assign-inline button:first-of-type:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
+}
+
+.assign-inline button:first-of-type:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.assign-inline button:last-of-type {
+  background: #f5f5f5;
+  color: #666;
+  border: 2px solid #e0e0e0;
+}
+
+.assign-inline button:last-of-type:hover {
+  background: #e8e8e8;
+  border-color: #b0b0b0;
+}
+
+.inline-error {
+  width: 100%;
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  padding: 6px 10px;
+  background: #f8d7da;
+  border-radius: 4px;
+  border-left: 3px solid #dc3545;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.empty-text {
+  font-size: 20px;
+  color: #666;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+}
+
+.empty-subtext {
+  font-size: 15px;
+  color: #999;
+  margin: 0;
+}
+
+/* Animations */
+.subjects-table tbody .subject-row {
+  animation: slideIn 0.3s ease forwards;
+  opacity: 0;
+}
+
+.subjects-table tbody .subject-row:nth-child(1) { animation-delay: 0.05s; }
+.subjects-table tbody .subject-row:nth-child(2) { animation-delay: 0.1s; }
+.subjects-table tbody .subject-row:nth-child(3) { animation-delay: 0.15s; }
+.subjects-table tbody .subject-row:nth-child(4) { animation-delay: 0.2s; }
+.subjects-table tbody .subject-row:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .lecturer-subjects-container {
+    padding: 15px;
+  }
+
+  .subjects-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .subjects-header h2 {
+    font-size: 24px;
+  }
+
+  .btn-create-subject {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tabs-container {
+    width: 100%;
+  }
+
+  .tab {
+    flex: 1;
+    justify-content: center;
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .subjects-table {
+    font-size: 12px;
+  }
+
+  .subjects-table th,
+  .subjects-table td {
+    padding: 10px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .assign-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .assign-inline select,
+  .assign-inline button {
+    width: 100%;
+  }
+
+  .empty-state {
+    padding: 60px 15px;
+  }
+
+  .empty-icon {
+    font-size: 60px;
+  }
+}

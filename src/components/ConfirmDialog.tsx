@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/ConfirmDialoag.css";  // ← Import CSS
+import "../styles/ConfirmDialoag.css";  // ← Fixed typo: ConfirmDialog.css
 
 interface Props {
   title?: string;
@@ -8,6 +8,9 @@ interface Props {
   onCancel: () => void;
   onConfirm: () => void;
   loading?: boolean;
+  confirmText?: string;      // ← NEW: Custom button text
+  loadingText?: string;      // ← NEW: Custom loading text
+  variant?: "danger" | "info" | "success";  // ← NEW: Different styles
 }
 
 const ConfirmDialog: React.FC<Props> = ({ 
@@ -16,9 +19,25 @@ const ConfirmDialog: React.FC<Props> = ({
   isOpen, 
   onCancel, 
   onConfirm, 
-  loading 
+  loading,
+  confirmText = "Confirm",     // ← Default: "Confirm"
+  loadingText = "Processing...", // ← Default: "Processing..."
+  variant = "danger"            // ← Default: danger (red)
 }) => {
   if (!isOpen) return null;
+
+  // Choose icon based on variant
+  const getIcon = () => {
+    switch (variant) {
+      case "info":
+        return "ℹ️";
+      case "success":
+        return "✅";
+      case "danger":
+      default:
+        return "⚠️";
+    }
+  };
 
   return (
     <div className="confirm-overlay" onClick={onCancel}>
@@ -26,7 +45,9 @@ const ConfirmDialog: React.FC<Props> = ({
         
         {/* Icon */}
         <div className="confirm-icon-container">
-          <div className="confirm-icon">⚠️</div>
+          <div className={`confirm-icon ${variant}`}>
+            {getIcon()}
+          </div>
         </div>
 
         {/* Title */}
@@ -46,17 +67,17 @@ const ConfirmDialog: React.FC<Props> = ({
           </button>
           
           <button 
-            className={`btn-confirm ${loading ? 'loading' : ''}`}
+            className={`btn-confirm ${variant} ${loading ? 'loading' : ''}`}
             onClick={onConfirm} 
             disabled={loading}
           >
             {loading ? (
               <>
                 <span className="spinner"></span>
-                Deleting...
+                {loadingText}
               </>
             ) : (
-              "Delete"
+              confirmText
             )}
           </button>
         </div>

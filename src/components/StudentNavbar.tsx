@@ -15,7 +15,7 @@ const StudentNavbar = () => {
         </li>
 
         <li>
-          <NavLink to="/student/courses" className="nav-item">
+          <NavLink to="/student/:studentId/courses" className="nav-item">
             Courses
           </NavLink>
         </li>

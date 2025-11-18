@@ -46,7 +46,7 @@
   }
 }
 
-/* Warning Icon Container */
+/* Icon Container */
 .confirm-icon-container {
   display: flex;
   justify-content: center;
@@ -56,14 +56,28 @@
 .confirm-icon {
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, #ff6b6b 0%, #dc3545 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36px;
   animation: pulse 2s ease-in-out infinite;
+}
+
+/* Icon Variants */
+.confirm-icon.danger {
+  background: linear-gradient(135deg, #ff6b6b 0%, #dc3545 100%);
   box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.confirm-icon.info {
+  background: linear-gradient(135deg, #4da6ff 0%, #3d8ed9 100%);
+  box-shadow: 0 4px 15px rgba(77, 166, 255, 0.3);
+}
+
+.confirm-icon.success {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
 }
 
 @keyframes pulse {
@@ -130,9 +144,8 @@
   cursor: not-allowed;
 }
 
-/* Confirm (Delete) Button */
+/* Confirm Button - Different variants */
 .btn-confirm {
-  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
   color: white;
   border: none;
   padding: 12px 28px;
@@ -149,10 +162,37 @@
   gap: 8px;
 }
 
-.btn-confirm:hover:not(:disabled) {
+/* Danger Button (Delete, Remove, etc.) */
+.btn-confirm.danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.btn-confirm.danger:hover:not(:disabled) {
   background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+/* Info Button (Enroll, Add, etc.) */
+.btn-confirm.info {
+  background: linear-gradient(135deg, #4da6ff 0%, #3d8ed9 100%);
+}
+
+.btn-confirm.info:hover:not(:disabled) {
+  background: linear-gradient(135deg, #3d8ed9 0%, #2e7bc4 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(77, 166, 255, 0.4);
+}
+
+/* Success Button (Approve, Complete, etc.) */
+.btn-confirm.success {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.btn-confirm.success:hover:not(:disabled) {
+  background: linear-gradient(135deg, #20c997 0%, #17a589 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
 }
 
 .btn-confirm:active:not(:disabled) {
@@ -181,26 +221,9 @@
   }
 }
 
-/* Loading State for Button */
+/* Loading State */
 .btn-confirm.loading {
   pointer-events: none;
-}
-
-/* Shake Animation on Open (for emphasis) */
-.confirm-dialog {
-  animation: scaleUp 0.3s ease, shake 0.5s ease 0.3s;
-}
-
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0) scale(1);
-  }
-  25% {
-    transform: translateX(-5px) scale(1);
-  }
-  75% {
-    transform: translateX(5px) scale(1);
-  }
 }
 
 /* Responsive Design */
@@ -235,25 +258,14 @@
   }
 }
 
-/* Focus States for Accessibility */
+/* Focus States */
 .btn-cancel:focus,
 .btn-confirm:focus {
   outline: 3px solid rgba(77, 166, 255, 0.5);
   outline-offset: 2px;
 }
 
-/* High Contrast Mode Support */
-@media (prefers-contrast: high) {
-  .confirm-dialog {
-    border: 2px solid #000;
-  }
-
-  .btn-cancel {
-    border-width: 3px;
-  }
-}
-
-/* Reduced Motion Support */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .confirm-overlay,
   .confirm-dialog,
