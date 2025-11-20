@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { Lecturer } from '../../types/lecturer'
 import apiClient from '../../api/apiClient';
-import axios from 'axios';
 import LecturerModel from '../../components/LecturerModel';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import UpdateLecturerModel from '../../components/UpdateLecturerModel';
@@ -23,7 +22,7 @@ function Lecturers() {
 
     const handleRowClick = async (id: number) => {
         try {
-            const response = await axios.get(`http://localhost:8080/admin/lecturer/${id}`);
+            const response = await apiClient.get(`/admin/lecturer/${id}`);
             setSelectedLecturer(response.data);
             setShowModal(true);
         } catch (error: any) {

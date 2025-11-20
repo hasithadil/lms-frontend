@@ -13,6 +13,7 @@ import axios from "axios";
 import type { CourseDTO, CourseResponseDTO } from "../../types/course";
 
 import "../../styles/lecturer/LecturerCourse.css";
+import apiClient from "../../api/apiClient";
 
 const LecturerCourses: React.FC = () => {
   const { lecturerId } = useParams<{ lecturerId: string }>();
@@ -56,7 +57,7 @@ const LecturerCourses: React.FC = () => {
 
   const openCourseDetails = async (courseId: number) => {
     try {
-      const res = await axios.get(`http://localhost:8080/lecturer/course/${courseId}`);
+      const res = await apiClient.get(`/lecturer/course/${courseId}`);
       setSelectedCourse(res.data);
       setShowDetailsModal(true);
     } catch (err) {
