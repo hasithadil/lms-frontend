@@ -34,3 +34,40 @@
   border-bottom: 2px solid #4da6ff;
   padding-bottom: 2px;
 }
+
+/* ============================================ */
+/* NEW: User section styling */
+/* ============================================ */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
+.nav-username {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-logout {
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-logout:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.nav-logout:active {
+  transform: translateY(0);
+}

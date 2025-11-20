@@ -3,7 +3,6 @@ import type { Student } from "../../types/student";
 import apiClient from "../../api/apiClient";
 import type { StudentDetails } from "../../types/studentDetails";
 import StudentModal from "../../components/StudentModel";
-import axios from "axios";
 import UpdateStudentModal from "../../components/UpdateStudentModel";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import AddStudentModal from "../../components/AddStudentModel";
@@ -23,7 +22,7 @@ function Students() {
 
   const handleRowClick = async (id: number) => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/student/${id}`);
+      const response = await apiClient.get(`admin/student/${id}`);
       setSelectedStudent(response.data);
       setShowModal(true);
     } catch (error: any) {

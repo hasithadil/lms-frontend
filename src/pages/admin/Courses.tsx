@@ -4,6 +4,7 @@ import type { CourseDTO, CourseResponseDTO } from "../../types/course";
 import CourseDetailsModal from "../../components/CourseDetailsModel";
 import "../../styles/Admin/Courses.css";  // ← Import CSS
 import AdminNavbar from "../../components/AdminNavbar";
+import apiClient from "../../api/apiClient";
 
 const Courses: React.FC = () => {
   const [courses, setCourses] = useState<CourseDTO[]>([]);
@@ -19,7 +20,7 @@ const Courses: React.FC = () => {
   const loadCourses = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8080/admin/courses");
+      const res = await apiClient.get("/admin/courses");
       setCourses(res.data);
       setError("");
     } catch (err: any) {
@@ -31,7 +32,7 @@ const Courses: React.FC = () => {
 
   const handleRowClick = async (id: number) => {
     try {
-      const res = await axios.get(`http://localhost:8080/admin/course/${id}`);
+      const res = await apiClient.get(`/admin/course/${id}`);
       setSelectedCourse(res.data);
       setShowModal(true);
     } catch (err: any) {

@@ -11,6 +11,7 @@ import { enrollCourse } from "../../api/studentApi";
 import type { CourseDTO, CourseResponseDTO } from "../../types/course";
 
 import "../../styles/Student/StudentCourses.css";
+import apiClient from "../../api/apiClient";
 
 const StudentCourses: React.FC = () => {
   const { studentId } = useParams<{ studentId: string }>();
@@ -35,7 +36,7 @@ const StudentCourses: React.FC = () => {
     try {
       setLoading(true);
       setError("");
-      const res = await axios.get<CourseDTO[]>("http://localhost:8080/student/courses");
+      const res = await apiClient.get<CourseDTO[]>("/student/courses");
       setCourses(res.data);
     } catch (err: any) {
       console.error(err);
@@ -47,7 +48,7 @@ const StudentCourses: React.FC = () => {
 
   const handleRowClick = async (courseId: number) => {
     try {
-      const res = await axios.get<CourseResponseDTO>(`http://localhost:8080/student/course/${courseId}`);
+      const res = await apiClient.get<CourseResponseDTO>(`/student/course/${courseId}`);
       setSelectedCourse(res.data);
       setShowModal(true);
     } catch (err: any) {

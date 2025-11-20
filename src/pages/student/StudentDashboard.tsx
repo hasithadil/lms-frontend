@@ -11,6 +11,7 @@ import type { StudentResponseDTO } from "../../types/student";
 import type { CourseResponseDTO } from "../../types/course";
 
 import "../../styles/Student/StudentDashboard.css";
+import apiClient from "../../api/apiClient";
 
 const StudentDashboard: React.FC = () => {
   const { studentId } = useParams<{ studentId: string }>();
@@ -86,8 +87,11 @@ const StudentDashboard: React.FC = () => {
 
   const handleRowClick = async (courseId: number) => {
     try {
-      const res = await fetch(`http://localhost:8080/student/course/${courseId}`);
-      const data = await res.json();
+      // const res = await fetch(`http://localhost:8080/student/course/${courseId}`);
+      // const data = await res.json();
+      // ✅ Use apiClient instead of fetch
+const res = await apiClient.get(`/student/course/${courseId}`);
+const data = res.data;
       setSelectedCourse(data);
       setShowModal(true);
     } catch (err) {
