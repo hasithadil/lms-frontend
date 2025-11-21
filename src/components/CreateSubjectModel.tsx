@@ -1,4 +1,3 @@
-// src/components/CreateSubjectModal.tsx
 import React, { useState } from "react";
 import { createSubject } from "../api/lecturerApi";
 

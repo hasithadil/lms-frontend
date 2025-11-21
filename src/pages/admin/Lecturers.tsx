@@ -7,6 +7,7 @@ import UpdateLecturerModel from '../../components/UpdateLecturerModel';
 import AddLecturerModal from '../../components/AddLecturerModel';
 import '../../styles/Admin/Lecturers.css';  // ← Import CSS
 import AdminNavbar from '../../components/AdminNavbar';
+import Toast from '../../components/Toast';
 
 function Lecturers() {
 
@@ -19,6 +20,8 @@ function Lecturers() {
     const [deletingLecturer, setDeletingLecturer] = useState<Lecturer | null>(null);
     const [processing, setProcessing] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
+        const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
+    
 
     const handleRowClick = async (id: number) => {
         try {
@@ -44,9 +47,20 @@ function Lecturers() {
         try {
             await apiClient.delete(`/admin/lecturer/${deletingLecturer.lec_id}`);
             setLecturers((prev) => prev.filter((l) => l.lec_id !== deletingLecturer.lec_id));
+
+                setToast({
+        message: `Lecturer "${deletingLecturer.firstName} ${deletingLecturer.lastName}" deleted successfully!`,
+        type: "success"
+      });
+
             setDeletingLecturer(null);
         } catch (err: any) {
-            alert(err.response?.data?.message || "Delete failed");
+             setToast({
+        message: err.response?.data?.message || "Delete failed",
+        type: "error"
+      });
+
+      setDeletingLecturer(null);
         } finally {
             setProcessing(false);
         }
@@ -57,6 +71,11 @@ function Lecturers() {
     const onLecturerUpdated = (updated: Lecturer) => {
         setLecturers((prev) => prev.map((l) => (l.lec_id === updated.lec_id ? updated : l)));
         setEditingLecturer(null);
+
+            setToast({
+      message: `Lecturer "${updated.firstName} ${updated.lastName}" updated successfully!`,
+      type: "success"
+    });
     };
 
     const fetchLecturer = async () => {
@@ -179,8 +198,19 @@ function Lecturers() {
                 <AddLecturerModal
                     onClose={() => setShowAddModal(false)}
                     onSuccess={fetchLecturer}
+                                        onShowToast={(message, type) => setToast({ message, type })}  // ← Pass toast callback
+
                 />
             )}
+
+            
+          {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
         </div>
         </>
     )

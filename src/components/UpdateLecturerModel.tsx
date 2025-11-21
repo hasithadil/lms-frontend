@@ -86,18 +86,6 @@ const UpdateLecturerModel: React.FC<Props> = ({ lecturer, onClose, onUpdated }) 
             />
           </div>
 
-          {/* <div className="form-group">
-            <label>Status</label>
-            <select 
-              value={status} 
-              onChange={e => setStatus(e.target.value as any)}
-              disabled={saving}
-            >
-              <option value="ACTIVE">ACTIVE</option>
-              <option value="INACTIVE">INACTIVE</option>
-            </select>
-          </div> */}
-
           {error && <div className="modal-error">{error}</div>}
 
           <div className="modal-actions">
