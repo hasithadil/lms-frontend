@@ -118,7 +118,7 @@ function Lecturers() {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
