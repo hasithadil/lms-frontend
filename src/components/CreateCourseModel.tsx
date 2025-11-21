@@ -5,9 +5,11 @@ interface Props {
   lecturerId: number;
   onClose: () => void;
   onSuccess: () => void;
+    onShowToast?: (message: string, type: "success" | "error") => void;  // ← NEW
+
 }
 
-const CreateCourseModal: React.FC<Props> = ({ lecturerId, onClose, onSuccess }) => {
+const CreateCourseModal: React.FC<Props> = ({ lecturerId, onClose, onSuccess, onShowToast }) => {
   const [form, setForm] = useState({
     name: "",
     maxStudent: 0,
@@ -30,7 +32,7 @@ const CreateCourseModal: React.FC<Props> = ({ lecturerId, onClose, onSuccess }) 
       onSuccess();
       onClose();
     } catch (err: any) {
-      alert(err.response?.data?.error || "Failed to create course");
+      alert(err.response?.data?.error || "Course already exists");
     }
   };
 

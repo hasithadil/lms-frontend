@@ -115,7 +115,7 @@ const LecturerCourses: React.FC = () => {
                 <tr>
                   <th>Course Name</th>
                   <th>Max Students</th>
-                  <th>Actions</th>
+                  <th></th>
                 </tr>
               </thead>
 

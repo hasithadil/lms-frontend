@@ -18,6 +18,7 @@ import type { LecturerSubjectDTO } from "../../types/subject";
 
 import "../../styles/lecturer/LecturerSubject.css";
 
+
 const LecturerSubjects: React.FC = () => {
   const { lecturerId } = useParams<{ lecturerId: string }>();
 
@@ -156,8 +157,7 @@ const LecturerSubjects: React.FC = () => {
               <thead>
                 <tr>
                   <th>Subject Name</th>
-                  <th>Lecturer</th>
-                  <th>Actions</th>
+                  <th></th>
                 </tr>
               </thead>
 
@@ -171,11 +171,6 @@ const LecturerSubjects: React.FC = () => {
                       </div>
                     </td>
 
-                    <td>
-                      <span className="lecturer-badge">
-                        👨‍🏫 {lecturer.name}
-                      </span>
-                    </td>
 
                     <td>
                       {openAssignFor === s.subId ? (
