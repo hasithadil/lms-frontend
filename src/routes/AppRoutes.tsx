@@ -1,37 +1,3 @@
-// import React from "react";
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import Students from "../pages/admin/Students";
-// import Lecturers from "../pages/admin/Lecturers";
-// import Courses from "../pages/admin/Courses";
-// import StudentDashboard from "../pages/student/StudentDashboard";
-// import StudentCourses from "../pages/student/StudentCourses";
-// import LecturerDashboard from "../pages/lecturer/LecturerDashboard";
-// import LecturerSubjects from "../pages/lecturer/LecturerSubjects";
-// import LecturerCourses from "../pages/lecturer/LecturerCourses";
-
-// function AppRoutes() {
-//   return (
-//     <Routes>
-//       <Route path="/admin/lecturers" element={<Lecturers />} />
-//       <Route path="/admin/courses" element={<Courses />} />
-//       <Route path="/admin" element={<Students />} />
-//       <Route path="/student/:studentId/courses" element={<StudentCourses />} />
-//       <Route path="/student/:studentId" element={<StudentDashboard />} />
-//       <Route path="/lecturer/:lecId" element={<LecturerDashboard />} />
-//       <Route
-//         path="/lecturer/:lecturerId/subjects"
-//         element={<LecturerSubjects />}
-//       />
-//       <Route
-//         path="/lecturer/:lecturerId/courses"
-//         element={<LecturerCourses />}
-//       />
-//     </Routes>
-//   );
-// }
-
-// export default AppRoutes;
-
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 

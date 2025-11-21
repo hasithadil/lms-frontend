@@ -20,7 +20,7 @@ const CourseDetailsModal: React.FC<Props> = ({ course, onClose }) => {
           <div>
             <h2>{course.name}</h2>
             <p className="course-lecturer">
-              👨‍🏫 Taught by {course.lecturerName}
+              👨‍🏫 Conduct by {course.lecturerName}
             </p>
           </div>
           <button className="modal-close-btn" onClick={onClose}>

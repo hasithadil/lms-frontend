@@ -6,8 +6,9 @@ import StudentModal from "../../components/StudentModel";
 import UpdateStudentModal from "../../components/UpdateStudentModel";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import AddStudentModal from "../../components/AddStudentModel";
-import '../../styles/Admin/Students.css';  // ← Import CSS
+import '../../styles/Admin/Students.css';  
 import AdminNavbar from "../../components/AdminNavbar";
+import Toast from "../../components/Toast";
 
 function Students() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -19,6 +20,8 @@ function Students() {
   const [deletingStudent, setDeletingStudent] = useState<Student | null>(null);
   const [processing, setProcessing] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+    const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
+
 
   const handleRowClick = async (id: number) => {
     try {
@@ -43,6 +46,12 @@ function Students() {
   const onStudentUpdated = (updated: Student) => {
     setStudents((prev) => prev.map((s) => (s.s_id === updated.s_id ? updated : s)));
     setEditingStudent(null);
+
+     setToast({
+      message: `Student "${updated.firstName} ${updated.lastName}" updated successfully!`,
+      type: "success"
+    });
+
   };
 
   const fetchStudents = async () => {
@@ -64,9 +73,20 @@ function Students() {
     try {
       await apiClient.delete(`/admin/student/${deletingStudent.s_id}`);
       setStudents((prev) => prev.filter((s) => s.s_id !== deletingStudent.s_id));
+
+      setToast({
+        message: `Student "${deletingStudent.firstName} ${deletingStudent.lastName}" deleted successfully!`,
+        type: "success"
+      });
+
       setDeletingStudent(null);
     } catch (err: any) {
-      alert(err.response?.data?.message || "Delete failed");
+  setToast({
+        message: err.response?.data?.message || "Delete failed",
+        type: "error"
+      });
+
+      setDeletingStudent(null);
     } finally {
       setProcessing(false);
     }
@@ -176,6 +196,16 @@ function Students() {
         <AddStudentModal
           onClose={() => setShowAddModal(false)}
           onSuccess={fetchStudents}
+                    onShowToast={(message, type) => setToast({ message, type })}  // ← Pass toast callback
+
+        />
+      )}
+
+          {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
     </div>

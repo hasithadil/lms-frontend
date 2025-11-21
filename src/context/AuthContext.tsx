@@ -3,16 +3,13 @@ import type { ReactNode } from 'react';
 import keycloak from '../keycloak';
 import { getUserDatabaseId } from '../services/userMappingService';
 
-// ============================================
-// UPDATED: Added databaseId
-// ============================================
 interface AuthContextType {
   isAuthenticated: boolean;
   roles: string[];
   username: string | null;
   email: string | null;
   keycloakId: string | null;
-  databaseId: number | null;           // ← NEW: Store database ID
+  databaseId: number | null;          
   login: () => void;
   logout: () => void;
   token: string | null;
@@ -124,7 +121,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       username,
       email,
       keycloakId,
-      databaseId,        // ← NEW: Provide database ID
+      databaseId,        
       login,
       logout,
       token,

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Auth/LoginPage.css';
-import { getUserDatabaseId } from '../../services/userMappingService';  // ← ADD IMPORT
+import { getUserDatabaseId } from '../../services/userMappingService';  
 
 
 const LoginPage: React.FC = () => {

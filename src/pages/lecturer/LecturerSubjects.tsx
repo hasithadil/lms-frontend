@@ -34,7 +34,6 @@ const LecturerSubjects: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<"all" | "mine">("all");
 
-  // ← NEW: Toast state
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
 
   useEffect(() => {
