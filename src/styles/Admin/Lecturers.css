@@ -148,8 +148,25 @@
   background: #c82333;
 }
 
+.btn-reactivate {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-reactivate:hover {
+  background: #218838;
+}
+
 .btn-update:disabled,
-.btn-delete:disabled {
+.btn-delete:disabled,
+.btn-reactivate:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -206,7 +223,8 @@
   }
 
   .btn-update,
-  .btn-delete {
+  .btn-delete,
+  .btn-reactivate {
     width: 100%;
   }
 }
