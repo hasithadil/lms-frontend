@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Lecturer } from '../../types/lecturer'
+import type { LecturerDetails } from '../../types/lecturerDetails';
 import apiClient from '../../api/apiClient';
 import LecturerModel from '../../components/LecturerModel';
 import ConfirmDialog from '../../components/ConfirmDialog';
@@ -14,7 +15,7 @@ function Lecturers() {
     const [lecturers, setLecturers] = useState<Lecturer[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("")
-    const [selectedLecturer, setSelectedLecturer] = useState<Lecturer | null>(null);
+    const [selectedLecturer, setSelectedLecturer] = useState<LecturerDetails | null>(null);
     const [showModal, setShowModal] = useState(false);
     const [editingLecturer, setEditingLecturer] = useState<Lecturer | null>(null);
     const [deletingLecturer, setDeletingLecturer] = useState<Lecturer | null>(null);

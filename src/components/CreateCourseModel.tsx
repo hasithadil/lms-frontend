@@ -9,7 +9,7 @@ interface Props {
 
 }
 
-const CreateCourseModal: React.FC<Props> = ({ lecturerId, onClose, onSuccess, onShowToast }) => {
+const CreateCourseModal: React.FC<Props> = ({ lecturerId, onClose, onSuccess, onShowToast: _onShowToast }) => {
   const [form, setForm] = useState({
     name: "",
     maxStudent: 0,

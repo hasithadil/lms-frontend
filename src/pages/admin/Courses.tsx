@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import type { CourseDTO, CourseResponseDTO } from "../../types/course";
 import CourseDetailsModal from "../../components/CourseDetailsModel";
 import "../../styles/Admin/Courses.css";  // ← Import CSS

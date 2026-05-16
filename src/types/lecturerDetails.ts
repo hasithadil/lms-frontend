@@ -2,6 +2,7 @@
 export interface CourseSummary {
   courseId: number;
   name: string;
+  maxStudent: number;
 }
 
 export interface SubjectSummary{

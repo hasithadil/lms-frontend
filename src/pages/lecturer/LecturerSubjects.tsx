@@ -92,7 +92,7 @@ const LecturerSubjects: React.FC = () => {
   };
 
   // NEW: Handle assignment success
-  const handleAssignSuccess = async (courseId: number, subjectName: string) => {
+  const handleAssignSuccess = async (_courseId: number, subjectName: string) => {
     await loadData();
     setOpenAssignFor(null);
     

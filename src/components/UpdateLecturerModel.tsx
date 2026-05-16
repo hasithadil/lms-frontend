@@ -13,7 +13,7 @@ const UpdateLecturerModel: React.FC<Props> = ({ lecturer, onClose, onUpdated }) 
   const [firstName, setFirstName] = useState(lecturer.firstName);
   const [lastName, setLastName] = useState(lecturer.lastName);
   const [email, setEmail] = useState(lecturer.email);
-  const [status, setStatus] = useState(lecturer.status);
+  const [status] = useState(lecturer.status);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

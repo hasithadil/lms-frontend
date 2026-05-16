@@ -8,9 +8,9 @@ import CourseDetailsModal from "../../components/CourseDetailsModel";
 import ConfirmDialog from "../../components/ConfirmDialog";  // ← Import
 
 import { getLecturerDetails, deleteLecturerCourse } from "../../api/lecturerApi";
-import axios from "axios";
 
-import type { CourseDTO, CourseResponseDTO } from "../../types/course";
+import type { CourseResponseDTO } from "../../types/course";
+import type { CourseSummary } from "../../types/lecturerDetails";
 
 import "../../styles/lecturer/LecturerCourse.css";
 import apiClient from "../../api/apiClient";
@@ -18,7 +18,7 @@ import apiClient from "../../api/apiClient";
 const LecturerCourses: React.FC = () => {
   const { lecturerId } = useParams<{ lecturerId: string }>();
 
-  const [courses, setCourses] = useState<CourseDTO[]>([]);
+  const [courses, setCourses] = useState<CourseSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -49,7 +49,7 @@ const LecturerCourses: React.FC = () => {
     }
   };
 
-  const openUpdate = (course: CourseDTO, e: React.MouseEvent) => {
+  const openUpdate = (course: CourseSummary, e: React.MouseEvent) => {
     e.stopPropagation();
     setCourseForUpdate(course as any);
     setShowUpdateModal(true);
@@ -65,7 +65,7 @@ const LecturerCourses: React.FC = () => {
     }
   };
 
-  const handleDeleteClick = (course: CourseDTO, e: React.MouseEvent) => {
+  const handleDeleteClick = (course: CourseSummary, e: React.MouseEvent) => {
     e.stopPropagation();
     setDeletingCourse({ courseId: course.courseId, name: course.name });
   };

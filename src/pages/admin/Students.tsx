@@ -215,7 +215,7 @@
 
 // export default Students;
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Student } from "../../types/student";
 import apiClient from "../../api/apiClient";
 import type { StudentDetails } from "../../types/studentDetails";
