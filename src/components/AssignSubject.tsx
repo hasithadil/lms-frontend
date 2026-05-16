@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import type { LecturerCourseSummaryDTO } from "../types/lecturerDetails";
+import type { CourseSummary } from "../types/lecturerDetails";
 import { addSubjectToCourse } from "../api/lecturerApi";
 
 interface Props {
-  lecturerCourses: LecturerCourseSummaryDTO[];
+  lecturerCourses: CourseSummary[];
   subjectId: number;
   subjectName: string;  // ← NEW
   onAdd: (courseId: number) => void;
@@ -14,7 +14,7 @@ interface Props {
 const AssignSubjectInline: React.FC<Props> = ({
   lecturerCourses,
   subjectId,
-  subjectName,
+  subjectName: _subjectName,
   onAdd,
   onClose,
   onError

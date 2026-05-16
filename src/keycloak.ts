@@ -2,9 +2,9 @@ import Keycloak from 'keycloak-js';
 
 // Configure connection to Keycloak server
 const keycloak = new Keycloak({
-  url: 'http://localhost:8081',           // Keycloak server URL
-  realm: 'myrealm',                          // realm name
-  clientId: 'my-spa-client'                    // React client ID
+  url: import.meta.env.VITE_KEYCLOAK_URL || 'http://localhost:8081',
+  realm: import.meta.env.VITE_KEYCLOAK_REALM || 'myrealm',
+  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID || 'my-spa-client',
 });
 
 export default keycloak;

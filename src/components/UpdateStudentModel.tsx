@@ -13,7 +13,7 @@ const UpdateStudentModal: React.FC<Props> = ({ student, onClose, onUpdated }) =>
   const [firstName, setFirstName] = useState(student.firstName);
   const [lastName, setLastName] = useState(student.lastName);
   const [email, setEmail] = useState(student.email);
-  const [status, setStatus] = useState(student.status);
+  const [status] = useState(student.status);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

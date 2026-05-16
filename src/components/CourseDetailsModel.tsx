@@ -1,5 +1,5 @@
 import React from "react";
-import type { CourseResponseDTO } from "../../types/course";
+import type { CourseResponseDTO } from "../types/course";
 import "../styles/Components/CourseDetailsModel.css";  // ← Import CSS
 
 interface Props {
@@ -83,7 +83,7 @@ const CourseDetailsModal: React.FC<Props> = ({ course, onClose }) => {
           </h3>
           {course.subjects.length > 0 ? (
             <div className="subjects-grid">
-              {course.subjects.map((s) => (
+              {course.subjects.map((s: { subjectId: number; subjectName: string }) => (
                 <div key={s.subjectId} className="subject-card">
                   <span className="subject-icon">📖</span>
                   <span className="subject-name">{s.subjectName}</span>

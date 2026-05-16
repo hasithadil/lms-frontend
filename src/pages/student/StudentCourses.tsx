@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
 import StudentNavbar from "../../components/StudentNavbar";
 import CourseDetailsModal from "../../components/CourseDetailsModel";
