@@ -32,78 +32,6 @@ A React-based Learning Management System frontend for a university. Three distin
 - JWT Bearer token automatically attached to every API request via Axios interceptor
 - Token auto-refreshed every 60 seconds
 
----
-
-## Routes / Pages
-
-| Path | Role | Component | Description |
-|---|---|---|---|
-| `/login` | Public | `LoginPage` | SSO login button; auto-redirects after auth |
-| `/unauthorized` | Public | `UnauthorizedPage` | Shown on role mismatch |
-| `/admin` | ADMIN | `Students` | All students table |
-| `/admin/lecturers` | ADMIN | `Lecturers` | All lecturers table |
-| `/admin/courses` | ADMIN | `Courses` | All courses table (read-only) |
-| `/student/:studentId` | STUDENT | `StudentDashboard` | Profile + enrolled courses |
-| `/student/:studentId/courses` | STUDENT | `StudentCourses` | Browse & enroll in courses |
-| `/lecturer/:lecId` | LECTURER | `LecturerDashboard` | Profile + courses & subjects summary |
-| `/lecturer/:lecturerId/courses` | LECTURER | `LecturerCourses` | Manage own courses |
-| `/lecturer/:lecturerId/subjects` | LECTURER | `LecturerSubjects` | Manage subjects & assign to courses |
-
-All role-specific routes are wrapped in `ProtectedRoute`, which redirects to `/login` if unauthenticated and to `/unauthorized` on role mismatch.
-
----
-
-## Backend API endpoints consumed
-
-All requests go to the base URL configured by `VITE_API_URL`.
-
-### Admin endpoints
-| Method | Path | Used by |
-|---|---|---|
-| GET | `/admin/students` | Students list |
-| GET | `admin/student/:id` | Student detail modal |
-| POST | `/admin/students` | Add student (via AddStudentModal) |
-| PUT | `/admin/student/:id` | Update student |
-| DELETE | `/admin/student/:id` | Deactivate student |
-| PUT | `/admin/student/:id/reactivate` | Reactivate student |
-| GET | `/admin/lecturers` | Lecturers list |
-| GET | `/admin/lecturer/:id` | Lecturer detail modal |
-| POST | `/admin/lecturers` | Add lecturer (via AddLecturerModal) |
-| PUT | `/admin/lecturer/:id` | Update lecturer |
-| DELETE | `/admin/lecturer/:id` | Deactivate lecturer |
-| PUT | `/admin/lecturer/:id/reactivate` | Reactivate lecturer |
-| GET | `/admin/courses` | All courses list |
-| GET | `/admin/course/:id` | Course detail modal |
-
-### Student endpoints
-| Method | Path | Used by |
-|---|---|---|
-| GET | `/student/students` | User-mapping (Keycloak ID → DB ID) |
-| GET | `/student/:id` | Student profile + enrollments |
-| GET | `/student/courses` | Available courses list |
-| GET | `/student/course/:id` | Course detail modal |
-| POST | `/student/enroll` | Enroll in a course |
-| DELETE | `/student/unenroll/:studentId/:courseId` | Unenroll from a course |
-| GET | `/student/enroll/:id` | Student's current enrollments |
-
-### Lecturer endpoints
-| Method | Path | Used by |
-|---|---|---|
-| GET | `/lecturer/lecturers` | User-mapping (Keycloak ID → DB ID) |
-| GET | `/lecturer/:id` | Lecturer profile + courses + subjects |
-| GET | `/lecturer/:id/courses` | Lecturer's courses |
-| GET | `/lecturer/:courseId/subjects` | Subjects in a course |
-| POST | `/lecturer/courses` | Create course |
-| PUT | `/lecturer/course/:courseId` | Update course |
-| DELETE | `/lecturer/course/:courseId` | Delete course |
-| GET | `/lecturer/course/:id` | Course detail modal |
-| GET | `/lecturer/subjects` | All subjects |
-| POST | `/lecturer/subjects` | Create subject |
-| DELETE | `/lecturer/subject/:id` | Delete subject |
-| POST | `/lecturer/subjecttocourse` | Assign subject to course |
-| DELETE | `/lecturer/course/:courseId/subject/:subId` | Remove subject from course |
-
----
 
 ## Tech stack
 
@@ -117,12 +45,6 @@ All requests go to the base URL configured by `VITE_API_URL`.
 | Styling | Tailwind CSS v4 + plain CSS modules |
 | Linting | ESLint + typescript-eslint |
 | Deployment | Vercel (via `vercel.json` SPA rewrite) |
-
----
-
-## Screenshots
-
-> Add screenshots here after deployment.
 
 ---
 
@@ -170,32 +92,6 @@ VITE_KEYCLOAK_CLIENT_ID=my-spa-client
 ```
 
 All four variables are required for the app to function. Without them the app falls back to the localhost defaults, which will not work in production.
-
----
-
-## Build for production
-
-```bash
-npm run build
-```
-
-Output goes to `dist/`. Serve it with any static host that can handle SPA routing (Vercel, Netlify, nginx with `try_files`).
-
----
-
-## Deploy to Vercel
-
-1. Push the repo to GitHub.
-2. Import the repo in [vercel.com](https://vercel.com).
-3. Set the following **Environment Variables** in the Vercel project settings:
-   - `VITE_API_URL` — your production backend URL
-   - `VITE_KEYCLOAK_URL` — your production Keycloak URL
-   - `VITE_KEYCLOAK_REALM` — your realm name
-   - `VITE_KEYCLOAK_CLIENT_ID` — your client ID
-4. Vercel will auto-detect Vite and run `npm run build` with output directory `dist`.
-5. The included `vercel.json` ensures all client-side routes serve `index.html`.
-
-> **Important:** Add your Vercel deployment URL to the **Valid Redirect URIs** and **Web Origins** in your Keycloak client settings, otherwise the SSO flow will be blocked.
 
 ---
 
